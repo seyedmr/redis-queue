@@ -76,6 +76,7 @@ class Client
         'auth'          => '',
         'db'            => 0,
         'prefix'        => '',
+        'queue_name'    => 'redis-queue',
     ];
 
     /**
@@ -329,7 +330,7 @@ class Client
     public static function getQueueName(?string $queue = null, string $status = self::QUEUE_WAITING): string
     {
         $name = [
-            $this->_options['prefix'] ?? '{redis-queue}',
+            $this->_options['prefix'] . '{' . $this->_options['queue_name'] . '}',
             $status,
         ];
         if ($queue) {
